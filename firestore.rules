@@ -1,0 +1,16 @@
+{
+  "rules": {
+    "bookings": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "resources": {
+      ".read": true,
+      ".write": "auth != null && ((request.auth.token.email in ['admin@example.com']))"
+    },
+    "forum_posts": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    }
+  }
+}

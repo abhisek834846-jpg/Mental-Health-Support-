@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Psychological Intervention System</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  
+  <!-- Application Scripts -->
+  <script src="scripts/firebase-config.js"></script>
+  <script src="scripts/auth.js"></script>
+  <script src="scripts/chatbot.js"></script>
+  <script src="scripts/booking.js"></script>
+  <script src="scripts/resources.js"></script>
+  <script src="scripts/main.js"></script>
+  <!-- Temporary: Remove after admin setup -->
+  <script src="scripts/setup-admin.js"></script>
+</head>
+<body>
+  <nav id="navbar">
+    <div class="logo">
+      <h1>Mental Health Support</h1>
+    </div>
+    <div id="connection-status"></div>
+    <div id="user-info"></div>
+  </nav>
+  <script>
+    // Monitor online/offline status
+    function updateConnectionStatus() {
+      const status = document.getElementById('connection-status');
+      if (status) {
+        status.className = navigator.onLine ? 'online' : 'offline';
+        status.textContent = navigator.onLine ? 'Connected' : 'Offline';
+      }
+    }
+    window.addEventListener('online', updateConnectionStatus);
+    window.addEventListener('offline', updateConnectionStatus);
+    document.addEventListener('DOMContentLoaded', updateConnectionStatus);
+  </script>
+
+  <main id="main-content">
+    <!-- Auth Forms - Only visible when logged out -->
+    <div class="auth-forms non-auth-required">
+      <div class="form-container">
+        <h2>Login</h2>
+        <form id="login-form">
+          <input type="email" name="email" placeholder="Email" required>
+          <input type="password" name="password" placeholder="Password" required>
+          <button type="submit">Login</button>
+        </form>
+        <button id="google-login" class="google-btn">Login with Google</button>
+      </div>
+
+      <div class="form-container">
+        <h2>Register</h2>
+        <form id="register-form">
+          <input type="email" name="email" placeholder="Email" required>
+          <input type="password" name="password" placeholder="Password" required>
+          <button type="submit">Register</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Main Content - Only visible when logged in -->
+    <div class="main-sections auth-required">
+      <section id="chat-section" class="section">
+        <h2>AI Chat Support</h2>
+        <div id="chat-container"></div>
+      </section>
+
+      <section id="booking-section" class="section">
+        <h2>Book an Appointment</h2>
+        <div id="booking-container"></div>
+      </section>
+
+      <section id="resources-section" class="section">
+        <h2>Self-Help Resources</h2>
+        <div id="resources-container"></div>
+      </section>
+
+      <section id="forum-section" class="section">
+        <h2>Peer Forum</h2>
+        <div id="forum-container"></div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
